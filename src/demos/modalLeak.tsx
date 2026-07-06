@@ -1,46 +1,86 @@
 import React, { PureComponent, useCallback, useState } from "react";
 
 const blockStyle: React.CSSProperties = {
-    border: "1px solid #e2e8f0",
-    borderRadius: 8,
-    padding: 16,
+    border: "1px solid rgba(255, 255, 255, 0.06)",
+    borderRadius: 16,
+    padding: 24,
     marginTop: 16,
+    background: "#1C1C1C",
 };
 
 const buttonStyle: React.CSSProperties = {
-    padding: "8px 14px",
-    borderRadius: 6,
-    border: "1px solid #94a3b8",
-    background: "#f1f5f9",
+    padding: "0.625rem 1.5rem",
+    borderRadius: 8,
+    border: "none",
+    background: "#FFDD2D",
+    color: "#0A0A0A",
     cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: "1rem",
+    fontWeight: 600,
+    lineHeight: 1.5,
+    transition: "all 120ms ease",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
+};
+
+const buttonDisabledStyle: React.CSSProperties = {
+    ...buttonStyle,
+    background: "#444444",
+    color: "#888888",
+    cursor: "not-allowed",
+    boxShadow: "none",
 };
 
 const closeButtonStyle: React.CSSProperties = {
     ...buttonStyle,
-    background: "#fef2f2",
-    border: "1px solid #fca5a5",
-    color: "#b91c1c",
+    background: "rgba(255, 255, 255, 0.08)",
+    color: "#F1F1F1",
+    border: "1px solid rgba(255, 255, 255, 0.12)",
 };
 
-const pStyle: React.CSSProperties = { margin: "0 0 12px", fontSize: "0.9em", color: "#64748b" };
+const metaTextStyle: React.CSSProperties = {
+    fontSize: "0.875rem",
+    color: "#999999",
+    fontFamily: "inherit",
+};
 
 const overlayStyle: React.CSSProperties = {
     position: "fixed",
     inset: 0,
-    background: "rgba(0,0,0,0.4)",
+    background: "rgba(0, 0, 0, 0.7)",
+    backdropFilter: "blur(4px)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
+    padding: 16,
 };
 
 const modalContentStyle: React.CSSProperties = {
-    background: "#fff",
-    borderRadius: 12,
-    padding: 24,
+    background: "#1C1C1C",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    borderRadius: 16,
+    padding: 32,
     minWidth: 340,
     maxWidth: 480,
-    boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+    width: "100%",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
+    color: "#F1F1F1",
+};
+
+const modalTitleStyle: React.CSSProperties = {
+    margin: "0 0 16px",
+    fontSize: "1.25rem",
+    fontWeight: 700,
+    color: "#F1F1F1",
+    letterSpacing: "-0.02em",
+};
+
+const modalPStyle: React.CSSProperties = {
+    margin: "0 0 12px",
+    fontSize: "0.9em",
+    color: "#CCCCCC",
+    lineHeight: 1.7,
 };
 
 function stopPropagation(e: React.MouseEvent) {
@@ -77,12 +117,12 @@ export class LeakyModalContent extends PureComponent<{ onClose: () => void }> {
     render() {
         return (
             <div ref={this.setRef} style={modalContentStyle}>
-                <h3 style={{ margin: "0 0 12px" }}>Modal</h3>
-                <p style={pStyle}>
+                <h3 style={modalTitleStyle}>Modal</h3>
+                <p style={modalPStyle}>
                     Подписывается на <code>beforeunload</code> и <code>pagehide</code> при монтировании, но никогда не
                     отписывается при размонтировании.
                 </p>
-                <p style={pStyle}>
+                <p style={modalPStyle}>
                     Callback ref сохраняет элемент при монтировании и не очищает <code>domNode</code>, когда React
                     передаёт <code>null</code> — последний DOM-поддерево может оставаться отключённым, но
                     удерживаемым.
@@ -115,10 +155,10 @@ export function ModalLeakDemo() {
     return (
         <div style={blockStyle}>
             <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-                <button disabled={isOpen} onClick={handleOpen} style={buttonStyle} type="button">
-                    Open modal
+                <button disabled={isOpen} onClick={handleOpen} style={isOpen ? buttonDisabledStyle : buttonStyle} type="button">
+                    Открыть модальное окно
                 </button>
-                <span style={{ fontSize: "0.85em", color: "#64748b" }}>
+                <span style={metaTextStyle}>
                     Opens: {openCount} | Closes: {closeCount}
                 </span>
             </div>

@@ -1,42 +1,79 @@
 import React, { useMemo, useState } from "react";
 
 const blockStyle: React.CSSProperties = {
-    border: "1px solid #e2e8f0",
-    borderRadius: 8,
-    padding: 16,
+    border: "1px solid rgba(255, 255, 255, 0.06)",
+    borderRadius: 16,
+    padding: 24,
     marginTop: 16,
+    background: "#1C1C1C",
 };
 
 const buttonStyle: React.CSSProperties = {
-    padding: "8px 14px",
-    borderRadius: 6,
-    border: "1px solid #94a3b8",
-    background: "#f1f5f9",
+    padding: "0.625rem 1.5rem",
+    borderRadius: 8,
+    border: "none",
+    background: "#FFDD2D",
+    color: "#0A0A0A",
     cursor: "pointer",
+    fontFamily: "inherit",
+    fontSize: "1rem",
+    fontWeight: 600,
+    lineHeight: 1.5,
+    transition: "all 120ms ease",
+    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4)",
 };
 
-const pStyle: React.CSSProperties = { margin: "0 0 12px", fontSize: "0.9em", color: "#64748b" };
+const closeButtonStyle: React.CSSProperties = {
+    ...buttonStyle,
+    background: "rgba(255, 255, 255, 0.08)",
+    color: "#F1F1F1",
+    border: "1px solid rgba(255, 255, 255, 0.12)",
+};
+
+const metaTextStyle: React.CSSProperties = {
+    fontSize: "0.875rem",
+    color: "#999999",
+    fontFamily: "inherit",
+};
 
 const overlayStyle: React.CSSProperties = {
     position: "fixed",
     inset: 0,
-    background: "rgba(0,0,0,0.4)",
+    background: "rgba(0, 0, 0, 0.7)",
+    backdropFilter: "blur(4px)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 1000,
+    padding: 16,
 };
 
 const modalContentStyle: React.CSSProperties = {
-    background: "#fff",
-    borderRadius: 12,
-    padding: 24,
+    background: "#1C1C1C",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    borderRadius: 16,
+    padding: 32,
     minWidth: 340,
     maxWidth: 480,
-    boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
+    width: "100%",
+    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.6)",
+    color: "#F1F1F1",
 };
 
-const h3Style: React.CSSProperties = { margin: "0 0 8px", fontSize: "1.05em" };
+const modalTitleStyle: React.CSSProperties = {
+    margin: "0 0 16px",
+    fontSize: "1.25rem",
+    fontWeight: 700,
+    color: "#F1F1F1",
+    letterSpacing: "-0.02em",
+};
+
+const modalPStyle: React.CSSProperties = {
+    margin: "0 0 12px",
+    fontSize: "0.9em",
+    color: "#CCCCCC",
+    lineHeight: 1.7,
+};
 
 function stopPropagation(e: React.MouseEvent) {
     e.stopPropagation();
@@ -98,13 +135,13 @@ export function MemoStableModalDemo() {
 
     return (
         <div style={blockStyle}>
-            <h3 style={h3Style}>useMemo + кэшированный селектор</h3>
+            <h3 style={modalTitleStyle}>useMemo + кэшированный селектор</h3>
 
-            <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 8 }}>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 8, flexWrap: "wrap" }}>
                 <button onClick={handleOpen} style={buttonStyle} type="button">
                     Открыть модальное окно
                 </button>
-                <span style={{ fontSize: "0.85em", color: "#64748b" }}>
+                <span style={metaTextStyle}>
                     useMemo rows: {heavyData.length.toLocaleString()} | Selector strings:{" "}
                     {processedData.length.toLocaleString()}
                 </span>
@@ -113,17 +150,17 @@ export function MemoStableModalDemo() {
             {modalOpen ? (
                 <div onClick={handleCloseModal} role="presentation" style={overlayStyle}>
                     <div onClick={stopPropagation} role="presentation" style={modalContentStyle}>
-                        <h3 style={{ margin: "0 0 12px" }}>Modal</h3>
-                        <p style={pStyle}>
+                        <h3 style={modalTitleStyle}>Modal</h3>
+                        <p style={modalPStyle}>
                             Первое открытие запускает мемо и заполняет кэш селектора. Последующие открытия используют
                             ту же ссылку на <code>heavyData</code> и кэшированные производные строки.
                         </p>
-                        <p style={{ ...pStyle, fontWeight: 500 }}>
+                        <p style={{ ...modalPStyle, fontWeight: 500 }}>
                             Rows: {heavyData.length.toLocaleString()} | Processed:{" "}
                             {processedData.length.toLocaleString()}
                         </p>
-                        <button onClick={handleCloseModal} style={buttonStyle} type="button">
-                            Close
+                        <button onClick={handleCloseModal} style={closeButtonStyle} type="button">
+                            Закрыть
                         </button>
                     </div>
                 </div>
