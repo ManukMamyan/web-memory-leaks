@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Derived } from "../demos/demo3/Child.ts";
+import { Derived } from "../demos/demo3/Derived.ts";
 
 export default function Demo3() {
     const [showTest, setShowTest] = useState(true);
