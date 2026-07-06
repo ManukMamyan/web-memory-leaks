@@ -6,25 +6,19 @@ export default function Home() {
             <h1>Memory leaks demo</h1>
             <ul>
                 <li>
-                    <Link to="/demo-1-1">Demo 1.1: Detached elements</Link>
+                    <Link to="/demo-1">Демо 1: Detached элементы</Link>
                 </li>
                 <li>
-                    <Link to="/demo-1-2">Demo 1.2: JS leak + allocation timeline</Link>
+                    <Link to="/demo-2">Демо 2: JS утечки + allocation timeline</Link>
                 </li>
                 <li>
-                    <Link to="/demo-1-3">Demo 1.3: Less obvious JS leak</Link>
+                    <Link to="/demo-3">Демо 3: Техника трех снапшотов</Link>
                 </li>
                 <li>
-                    <Link to="/demo-1-4">Demo 1.4: @boundMethod + debounce</Link>
+                    <Link to="/demo-4">Демо 4: Утечки памяти в React</Link>
                 </li>
                 <li>
-                    <Link to="/demo-2-1">Demo 2.1: Modal leak</Link>
-                </li>
-                <li>
-                    <Link to="/demo-2-2">Demo 2.2: data-* attributes</Link>
-                </li>
-                <li>
-                    <Link to="/demo-2-3">Demo 2.3: useMemo/selectors</Link>
+                    <Link to="/demo-5">Демо 5: useMemo/selectors</Link>
                 </li>
             </ul>
         </main>

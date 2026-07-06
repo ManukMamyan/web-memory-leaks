@@ -98,11 +98,11 @@ export function MemoStableModalDemo() {
 
     return (
         <div style={blockStyle}>
-            <h3 style={h3Style}>useMemo + cached selector</h3>
+            <h3 style={h3Style}>useMemo + кэшированный селектор</h3>
 
             <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 8 }}>
                 <button onClick={handleOpen} style={buttonStyle} type="button">
-                    Open modal
+                    Открыть модальное окно
                 </button>
                 <span style={{ fontSize: "0.85em", color: "#64748b" }}>
                     useMemo rows: {heavyData.length.toLocaleString()} | Selector strings:{" "}
@@ -115,8 +115,8 @@ export function MemoStableModalDemo() {
                     <div onClick={stopPropagation} role="presentation" style={modalContentStyle}>
                         <h3 style={{ margin: "0 0 12px" }}>Modal</h3>
                         <p style={pStyle}>
-                            First open runs the memos and fills the selector cache. Later opens reuse the same{" "}
-                            <code>heavyData</code> reference and cached derived strings.
+                            Первое открытие запускает мемо и заполняет кэш селектора. Последующие открытия используют
+                            ту же ссылку на <code>heavyData</code> и кэшированные производные строки.
                         </p>
                         <p style={{ ...pStyle, fontWeight: 500 }}>
                             Rows: {heavyData.length.toLocaleString()} | Processed:{" "}

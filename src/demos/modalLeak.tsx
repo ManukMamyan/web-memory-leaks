@@ -48,8 +48,8 @@ function stopPropagation(e: React.MouseEvent) {
 }
 
 /**
- * Intentional leak: beforeunload/pagehide without removeEventListener;
- * callback ref keeps last DOM node when el is null (never cleared).
+ * Утечка намеренно: beforeunload/pagehide без removeEventListener;
+ * callback ref сохраняет последний DOM-узел, когда el равен null (никогда не очищается).
  */
 export class LeakyModalContent extends PureComponent<{ onClose: () => void }> {
     static displayName = "LeakyModalContent";
@@ -79,12 +79,13 @@ export class LeakyModalContent extends PureComponent<{ onClose: () => void }> {
             <div ref={this.setRef} style={modalContentStyle}>
                 <h3 style={{ margin: "0 0 12px" }}>Modal</h3>
                 <p style={pStyle}>
-                    Subscribes to <code>beforeunload</code> and <code>pagehide</code> on mount but never removes those
-                    listeners on unmount.
+                    Подписывается на <code>beforeunload</code> и <code>pagehide</code> при монтировании, но никогда не
+                    отписывается при размонтировании.
                 </p>
                 <p style={pStyle}>
-                    Ref callback stores the element when mounted and does not clear <code>domNode</code> when React
-                    passes <code>null</code> — the last DOM subtree can stay detached but retained.
+                    Callback ref сохраняет элемент при монтировании и не очищает <code>domNode</code>, когда React
+                    передаёт <code>null</code> — последний DOM-поддерево может оставаться отключённым, но
+                    удерживаемым.
                 </p>
                 <button onClick={this.props.onClose} style={closeButtonStyle} type="button">
                     Close

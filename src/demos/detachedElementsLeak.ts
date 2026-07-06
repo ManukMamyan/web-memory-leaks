@@ -1,4 +1,4 @@
-/** Module-level retention: UL subtrees never attached to document → DevTools "Detached elements". */
+/** Удержание на уровне модуля: поддеревья UL никогда не прикрепляются к документу → DevTools "Detached elements". */
 const detached: HTMLUListElement[] = [];
 
 export function leakDetachedNodes(): void {

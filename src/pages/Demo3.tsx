@@ -19,15 +19,15 @@ export default function Demo14() {
             <p>
                 <Link to="/">← Home</Link>
             </p>
-            <h1>Demo 1.4: @boundMethod + debounce</h1>
+            <h1>Демо 3: Техника трех снапшотов</h1>
             <p aria-live="polite" style={{ fontSize: "1.5rem", minHeight: "1.5em" }}>
                 {showTest ? "test" : "\u00a0"}
             </p>
             <p>
-                Each tick toggles the word <strong>test</strong> and constructs a new <code>Child</code>, then calls{" "}
-                <code>method()</code>. <code>Base</code> uses <code>@boundMethod</code> (autobind-decorator);{" "}
-                <code>Child</code> wraps <code>super.method</code> in <code>lodash/debounce</code>. The issue is
-                described in the <code>autobind-decorator</code> repository in{" "}
+                Каждый тик переключает слово <strong>test</strong> и создаёт новый <code>Child</code>, затем вызывает{" "}
+                <code>method()</code>. <code>Base</code> использует <code>@boundMethod</code> (autobind-decorator);{" "}
+                <code>Child</code> оборачивает <code>super.method</code> в <code>lodash/debounce</code>. Проблема
+                описана в репозитории <code>autobind-decorator</code> в{" "}
                 <a href="https://github.com/andreypopp/autobind-decorator/issues/76#issuecomment-719563300">
                     autobind-decorator #76
                 </a>
