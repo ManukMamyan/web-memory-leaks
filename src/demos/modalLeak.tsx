@@ -87,12 +87,8 @@ function stopPropagation(e: React.MouseEvent) {
     e.stopPropagation();
 }
 
-/**
- * Утечка намеренно: beforeunload/pagehide без removeEventListener;
- * callback ref сохраняет последний DOM-узел, когда el равен null (никогда не очищается).
- */
-export class LeakyModalContent extends PureComponent<{ onClose: () => void }> {
-    static displayName = "LeakyModalContent";
+export class ModalWithLeak extends PureComponent<{ onClose: () => void }> {
+    static displayName = "ModalWithLeak";
 
     componentDidMount() {
         window.addEventListener("beforeunload", this.handleUnload);
@@ -117,27 +113,26 @@ export class LeakyModalContent extends PureComponent<{ onClose: () => void }> {
     render() {
         return (
             <div ref={this.setRef} style={modalContentStyle}>
-                <h3 style={modalTitleStyle}>Modal</h3>
+                <h3 style={modalTitleStyle}>Модальное окно</h3>
                 <p style={modalPStyle}>
-                    Подписывается на <code>beforeunload</code> и <code>pagehide</code> при монтировании, но никогда не
-                    отписывается при размонтировании.
+                    Компонент подписывается на события <code>beforeunload</code> и <code>pagehide</code> при монтировании,
+                    но не отписывается при размонтировании.
                 </p>
                 <p style={modalPStyle}>
-                    Callback ref сохраняет элемент при монтировании и не очищает <code>domNode</code>, когда React
-                    передаёт <code>null</code> — последний DOM-поддерево может оставаться отключённым, но
-                    удерживаемым.
+                    Ref-функция сохраняет ссылку на DOM-элемент и не очищает её при размонтировании,
+                    что приводит к удержанию памяти.
                 </p>
                 <button onClick={this.props.onClose} style={closeButtonStyle} type="button">
-                    Close
+                    Закрыть
                 </button>
             </div>
         );
     }
 }
 
-(window as unknown as Record<string, unknown>).LeakyModalContent = LeakyModalContent;
+(window as unknown as Record<string, unknown>).ModalWithLeak = ModalWithLeak;
 
-export function ModalLeakDemo() {
+export function ModalLeakExample() {
     const [isOpen, setIsOpen] = useState(false);
     const [openCount, setOpenCount] = useState(0);
     const [closeCount, setCloseCount] = useState(0);
@@ -156,17 +151,17 @@ export function ModalLeakDemo() {
         <div style={blockStyle}>
             <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                 <button disabled={isOpen} onClick={handleOpen} style={isOpen ? buttonDisabledStyle : buttonStyle} type="button">
-                    Открыть модальное окно
+                    Открыть окно
                 </button>
                 <span style={metaTextStyle}>
-                    Opens: {openCount} | Closes: {closeCount}
+                    Открытий: {openCount} | Закрытий: {closeCount}
                 </span>
             </div>
 
             {isOpen ? (
                 <div onClick={handleClose} role="presentation" style={overlayStyle}>
                     <div onClick={stopPropagation} role="presentation">
-                        <LeakyModalContent onClose={handleClose} />
+                        <ModalWithLeak onClose={handleClose} />
                     </div>
                 </div>
             ) : null}

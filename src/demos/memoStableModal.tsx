@@ -92,74 +92,72 @@ function createCachedSelector() {
             return cache.result;
         }
 
-        cache = { input: items, result: items.map((item) => `[processed] ${item.value}`) };
+        cache = { input: items, result: items.map((item) => `[cached] ${item.value}`) };
         return cache.result;
     };
 }
 
 const selectProcessedData = createCachedSelector();
 
-const MEMO_ITEM_COUNT = 10_000;
+const ITEM_COUNT = 10_000;
 
-export function MemoStableModalDemo() {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [initialized, setInitialized] = useState(false);
+export function MemoizedModalDemo() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isInitialized, setIsInitialized] = useState(false);
 
     const heavyData = useMemo<DataItem[]>(() => {
-        if (!initialized) {
+        if (!isInitialized) {
             return [];
         }
-        // console.log("allocating heavyData", initialized);
-        return Array.from({ length: MEMO_ITEM_COUNT }, (_, i) => ({
+        return Array.from({ length: ITEM_COUNT }, (_, i) => ({
             id: i,
             value: `item-${i}-${"x".repeat(100)}`,
         }));
-    }, [initialized]);
+    }, [isInitialized]);
 
     const processedData = useMemo(() => {
         if (heavyData.length === 0) {
             return [];
         }
-        // console.log("allocating processedData", heavyData.length);
         return selectProcessedData(heavyData);
     }, [heavyData]);
 
     const handleOpen = () => {
-        setInitialized(true);
-        setModalOpen(true);
+        setIsInitialized(true);
+        setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setModalOpen(false);
+    const handleClose = () => {
+        setIsModalOpen(false);
     };
 
     return (
         <div style={blockStyle}>
-            <h3 style={modalTitleStyle}>useMemo + кэшированный селектор</h3>
+            <h3 style={modalTitleStyle}>useMemo + кэш селектора</h3>
 
             <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 8, flexWrap: "wrap" }}>
                 <button onClick={handleOpen} style={buttonStyle} type="button">
-                    Открыть модальное окно
+                    Показать окно
                 </button>
                 <span style={metaTextStyle}>
-                    useMemo rows: {heavyData.length.toLocaleString()} | Selector strings:{" "}
+                    Элементов: {heavyData.length.toLocaleString()} | Обработано:{" "}
                     {processedData.length.toLocaleString()}
                 </span>
             </div>
 
-            {modalOpen ? (
-                <div onClick={handleCloseModal} role="presentation" style={overlayStyle}>
+            {isModalOpen ? (
+                <div onClick={handleClose} role="presentation" style={overlayStyle}>
                     <div onClick={stopPropagation} role="presentation" style={modalContentStyle}>
-                        <h3 style={modalTitleStyle}>Modal</h3>
+                        <h3 style={modalTitleStyle}>Модальное окно</h3>
                         <p style={modalPStyle}>
-                            Первое открытие запускает мемо и заполняет кэш селектора. Последующие открытия используют
-                            ту же ссылку на <code>heavyData</code> и кэшированные производные строки.
+                            При первом открытии создаются данные и заполняется кэш. Повторные открытия используют
+                            существующие ссылки на данные и кэшированные результаты.
                         </p>
                         <p style={{ ...modalPStyle, fontWeight: 500 }}>
-                            Rows: {heavyData.length.toLocaleString()} | Processed:{" "}
+                            Строк: {heavyData.length.toLocaleString()} | Результатов:{" "}
                             {processedData.length.toLocaleString()}
                         </p>
-                        <button onClick={handleCloseModal} style={closeButtonStyle} type="button">
+                        <button onClick={handleClose} style={closeButtonStyle} type="button">
                             Закрыть
                         </button>
                     </div>

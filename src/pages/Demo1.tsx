@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Link } from "react-router-dom";
-import { leakDetachedNodes } from "../demos/detachedElementsLeak.ts";
+import { createDetachedElements } from "../demos/detachedElementsLeak.ts";
 
 export default function Demo1() {
     return (
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>
             
-            <h1>Демо 1: Detached элементы</h1>
+            <h1>Демо 1: Отключённые элементы</h1>
             
             <div className="card card--action">
-                <button type="button" className="btn btn--primary" onClick={leakDetachedNodes}>
-                    Создать detached узлы
+                <button type="button" className="btn btn--primary" onClick={createDetachedElements}>
+                    Создать detached элементы
                 </button>
             </div>
             
@@ -33,7 +34,7 @@ export default function Demo1() {
                         <br />
                         <code>queryObjects(HTMLElement)</code>
                     </li>
-                    <li>Detached elements</li>
+                    <li>Detached элементы</li>
                 </ul>
             </div>
         </main>

@@ -1,5 +1,6 @@
+ 
 import { Link } from "react-router-dom";
-import { leakJs } from "../demos/jsHeapLeak.ts";
+import { allocateMemory } from "../demos/jsHeapLeak.ts";
 
 const CHROME_ALLOCATION_TIMELINE = "https://developer.chrome.com/docs/devtools/memory-problems/allocation-profiler/";
 
@@ -8,10 +9,10 @@ export default function Demo2() {
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>
             
-            <h1>Демо 2: JS утечки + allocation timeline</h1>
+            <h1>Демо 2: Утечки JS + allocations on timeline</h1>
             
             <div className="card card--action">
-                <button type="button" className="btn btn--primary" onClick={leakJs}>
+                <button type="button" className="btn btn--primary" onClick={allocateMemory}>
                     Создать утечку
                 </button>
             </div>
@@ -19,9 +20,9 @@ export default function Demo2() {
             <div className="info-box">
                 <p className="info-box-title">Описание</p>
                 <p>
-                    Большие строки добавляются в массив на уровне модуля. Использование <code>indexOf</code> на строке
-                    заставляет V8 материализовать другое представление строки (cons vs seq), что чётко видно на timeline
-                    выделений.
+                    В модуле хранится массив, в который добавляются большие строки. Когда к строке применяют
+                    <code>indexOf</code>, V8 переключается с lazy-представления на seq (материализует данные),
+                    и на timeline это заметно.
                 </p>
             </div>
             
@@ -34,7 +35,7 @@ export default function Demo2() {
                     </li>
                     <li>
                         Allocations on timeline (
-                        <a href={CHROME_ALLOCATION_TIMELINE} target="_blank" rel="noopener noreferrer">guide</a>)
+                        <a href={CHROME_ALLOCATION_TIMELINE} target="_blank" rel="noopener noreferrer">руководство</a>)
                     </li>
                 </ul>
             </div>

@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
-import { MemoStableModalDemo } from "../demos/memoStableModal.tsx";
+import { MemoizedModalDemo } from "../demos/memoStableModal.tsx";
 
 export default function Demo5() {
     return (
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>
             
-            <h1>Демо 5: useMemo/selectors</h1>
+            <h1>Демо 5: useMemo и селекторы</h1>
             
             <div className="card card--action">
-                <MemoStableModalDemo />
+                <MemoizedModalDemo />
             </div>
             
             <div className="info-box">
@@ -20,16 +20,16 @@ export default function Demo5() {
                 </p>
                 <p>
                     Тяжёлые производные данные мемоизируются и разделяются между открытиями модального окна. Сравните с
-                    Демо 2 при снятии heap-снапшотов или allocation timelines: стабильный паттерн после первого выделения.
+                    Демо 2 при снятии heap-снапшотов или allocations on timeline: стабильный паттерн после первого allocation.
                 </p>
             </div>
             
             <div className="section">
                 <h2 className="section-title">Попробуйте:</h2>
                 <ul>
-                    <li>Three-snapshot technique</li>
+                    <li>Метод трёх снапшотов</li>
                     <li>
-                        <code>useMemo</code> and a reselect-style cached selector - not a leak
+                        <code>useMemo</code> и кэшированный селектор — не утечка
                     </li>
                 </ul>
             </div>

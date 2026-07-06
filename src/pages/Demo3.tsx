@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Child } from "../demos/demo3/Child.ts";
+import { Derived } from "../demos/demo3/Child.ts";
 
 export default function Demo3() {
     const [showTest, setShowTest] = useState(true);
@@ -8,8 +11,8 @@ export default function Demo3() {
     useEffect(() => {
         const id = window.setInterval(() => {
             setShowTest((v) => !v);
-            const child = new Child();
-            child.method();
+            const child = new Derived();
+            child.execute();
         }, 1000);
         return () => window.clearInterval(id);
     }, []);
@@ -18,7 +21,7 @@ export default function Demo3() {
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>
             
-            <h1>Демо 3: Техника трех снапшотов</h1>
+            <h1>Демо 3: Метод трёх снапшотов</h1>
             
             <div className="card card--action">
                 <p aria-live="polite" style={{ fontSize: "1.5rem", minHeight: "1.5em", margin: 0, color: "var(--tb-text-primary)" }}>
@@ -29,9 +32,9 @@ export default function Demo3() {
             <div className="info-box">
                 <p className="info-box-title">Описание</p>
                 <p>
-                    Каждый тик переключает слово <strong>test</strong> и создаёт новый <code>Child</code>, затем вызывает{" "}
-                    <code>method()</code>. <code>Base</code> использует <code>@boundMethod</code> (autobind-decorator);{" "}
-                    <code>Child</code> оборачивает <code>super.method</code> в <code>lodash/debounce</code>. Проблема
+                    Каждый тик переключает слово <strong>test</strong> и создаёт новый <code>Derived</code>, затем вызывает{" "}
+                    <code>execute()</code>. <code>Parent</code> использует <code>@boundMethod</code> (autobind-decorator);{" "}
+                    <code>Derived</code> оборачивает <code>super.execute</code> в <code>lodash/debounce</code>. Проблема
                     описана в репозитории <code>autobind-decorator</code> в{" "}
                     <a href="https://github.com/andreypopp/autobind-decorator/issues/76#issuecomment-719563300" 
                        target="_blank" 
@@ -44,12 +47,12 @@ export default function Demo3() {
             <div className="section">
                 <h2 className="section-title">Попробуйте:</h2>
                 <ul>
-                    <li>Performance monitor (JS heap may look calmer)</li>
+                    <li>Performance monitor (рост на графике потребления памяти)</li>
                     <li>
                         <code>queryObjects(Function)</code>
                     </li>
-                    <li>Memory — steady growth in JS heap</li>
-                    <li>Three-snapshot technique</li>
+                    <li>Memory — стабильный рост в JS heap</li>
+                    <li>Метод трёх снапшотов</li>
                 </ul>
             </div>
         </main>

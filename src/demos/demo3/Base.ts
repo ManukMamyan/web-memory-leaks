@@ -1,8 +1,8 @@
 import { boundMethod } from "autobind-decorator";
 
-export class Base {
+export class Parent {
     @boundMethod
-    method(): void {
+    execute(): void {
         // do something
     }
 }
