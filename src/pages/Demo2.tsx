@@ -5,33 +5,39 @@ const CHROME_ALLOCATION_TIMELINE = "https://developer.chrome.com/docs/devtools/m
 
 export default function Demo2() {
     return (
-        <main style={{ padding: "1rem 1.5rem", maxWidth: "42rem" }}>
-            <p>
-                <Link to="/">← Home</Link>
-            </p>
+        <main className="page">
+            <Link to="/" className="back-link">На главную</Link>
+            
             <h1>Демо 2: JS утечки + allocation timeline</h1>
-            <p>
-                <button type="button" onClick={leakJs}>
-                    Make JavaScript leak
+            
+            <div className="card card--action">
+                <button type="button" className="btn btn--primary" onClick={leakJs}>
+                    Создать утечку
                 </button>
-            </p>
-            <p>
-                Большие строки добавляются в массив на уровне модуля. Использование <code>indexOf</code> на строке
-                заставляет V8 материализовать другое представление строки (cons vs seq), что чётко видно на timeline
-                выделений.
-            </p>
-            <p>
-                <strong>Try:</strong>
-            </p>
-            <ul>
-                <li>Performance monitor</li>
-                <li>
-                    <code>queryObjects(Object)</code> / <code>queryObjects(Function)</code>
-                </li>
-                <li>
-                    Allocations on timeline (<a href={CHROME_ALLOCATION_TIMELINE}>guide</a>)
-                </li>
-            </ul>
+            </div>
+            
+            <div className="info-box">
+                <p className="info-box-title">Описание</p>
+                <p>
+                    Большие строки добавляются в массив на уровне модуля. Использование <code>indexOf</code> на строке
+                    заставляет V8 материализовать другое представление строки (cons vs seq), что чётко видно на timeline
+                    выделений.
+                </p>
+            </div>
+            
+            <div className="section">
+                <h2 className="section-title">Попробуйте:</h2>
+                <ul>
+                    <li>Performance monitor</li>
+                    <li>
+                        <code>queryObjects(Object)</code> / <code>queryObjects(Function)</code>
+                    </li>
+                    <li>
+                        Allocations on timeline (
+                        <a href={CHROME_ALLOCATION_TIMELINE} target="_blank" rel="noopener noreferrer">guide</a>)
+                    </li>
+                </ul>
+            </div>
         </main>
     );
 }

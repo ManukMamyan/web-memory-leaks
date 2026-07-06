@@ -2,23 +2,35 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
-        <main style={{ padding: "1rem 1.5rem", maxWidth: "42rem" }}>
-            <h1>Memory leaks demo</h1>
-            <ul>
-                <li>
-                    <Link to="/demo-1">Демо 1: Detached элементы</Link>
+        <main className="page">
+            <h1>Memory Leaks Demo</h1>
+            <p>Интерактивные демонстрации различных типов утечек памяти в JavaScript и React.</p>
+            
+            <ul className="nav-grid">
+                <li className="nav-grid-item">
+                    <Link to="/demo-1" className="nav-grid-link">
+                        <span className="nav-grid-label">Демо 1: Detached элементы</span>
+                    </Link>
                 </li>
-                <li>
-                    <Link to="/demo-2">Демо 2: JS утечки + allocation timeline</Link>
+                <li className="nav-grid-item">
+                    <Link to="/demo-2" className="nav-grid-link">
+                        <span className="nav-grid-label">Демо 2: JS утечки + allocation timeline</span>
+                    </Link>
                 </li>
-                <li>
-                    <Link to="/demo-3">Демо 3: Техника трех снапшотов</Link>
+                <li className="nav-grid-item">
+                    <Link to="/demo-3" className="nav-grid-link">
+                        <span className="nav-grid-label">Демо 3: Техника трех снапшотов</span>
+                    </Link>
                 </li>
-                <li>
-                    <Link to="/demo-4">Демо 4: Утечки памяти в React</Link>
+                <li className="nav-grid-item">
+                    <Link to="/demo-4" className="nav-grid-link">
+                        <span className="nav-grid-label">Демо 4: Утечки памяти в React</span>
+                    </Link>
                 </li>
-                <li>
-                    <Link to="/demo-5">Демо 5: useMemo/selectors</Link>
+                <li className="nav-grid-item">
+                    <Link to="/demo-5" className="nav-grid-link">
+                        <span className="nav-grid-label">Демо 5: useMemo/selectors</span>
+                    </Link>
                 </li>
             </ul>
         </main>
