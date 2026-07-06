@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ModalLeakDemo } from "../demos/modalLeak.tsx";
 
-export default function Demo21() {
+export default function Demo4() {
     return (
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MemoStableModalDemo } from "../demos/memoStableModal.tsx";
 
-export default function Demo23() {
+export default function Demo5() {
     return (
         <main className="page">
             <Link to="/" className="back-link">На главную</Link>

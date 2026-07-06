@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Child } from "../demos/demo14/Child.ts";
+import { Child } from "../demos/demo3/Child.ts";
 
-export default function Demo14() {
+export default function Demo3() {
     const [showTest, setShowTest] = useState(true);
 
     useEffect(() => {
